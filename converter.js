@@ -1,3 +1,48 @@
+// Object containing currency codes and their corresponding names, arranged alphabetically
+const currencyNames = {
+    "AED": "United Arab Emirates Dirham",
+    "ARS": "Argentine Peso",
+    "AUD": "Australian Dollar",
+    "BDT": "Bangladeshi Taka",
+    "BRL": "Brazilian Real",
+    "CAD": "Canadian Dollar",
+    "CHF": "Swiss Franc",
+    "CLP": "Chilean Peso",
+    "CNY": "Chinese Yuan",
+    "COP": "Colombian Peso",
+    "CZK": "Czech Koruna",
+    "DKK": "Danish Krone",
+    "EGP": "Egyptian Pound",
+    "EUR": "Euro",
+    "GBP": "British Pound Sterling",
+    "HKD": "Hong Kong Dollar",
+    "HUF": "Hungarian Forint",
+    "IDR": "Indonesian Rupiah",
+    "ILS": "Israeli New Shekel",
+    "INR": "Indian Rupee",
+    "JPY": "Japanese Yen",
+    "KRW": "South Korean Won",
+    "KWD": "Kuwaiti Dinar",
+    "MXN": "Mexican Peso",
+    "MYR": "Malaysian Ringgit",
+    "NGN": "Nigerian Naira",
+    "NOK": "Norwegian Krone",
+    "NZD": "New Zealand Dollar",
+    "PHP": "Philippine Peso",
+    "PKR": "Pakistani Rupee",
+    "PLN": "Polish Zloty",
+    "QAR": "Qatari Riyal",
+    "RUB": "Russian Ruble",
+    "SAR": "Saudi Riyal",
+    "SEK": "Swedish Krona",
+    "SGD": "Singapore Dollar",
+    "THB": "Thai Baht",
+    "TRY": "Turkish Lira",
+    "USD": "United States Dollar",
+    "VND": "Vietnamese Dong",
+    "ZAR": "South African Rand"
+};
+
 // Function to fetch exchange rates and populate the currency dropdowns
 async function fetchExchangeRates() {
     try {
@@ -9,11 +54,13 @@ async function fetchExchangeRates() {
         const toCurrencySelect = document.getElementById('toCurrency');
 
         currencyKeys.forEach(currency => {
-            let option = document.createElement('option');
-            option.value = currency;
-            option.textContent = currency;
-            fromCurrencySelect.appendChild(option);
-            toCurrencySelect.appendChild(option.cloneNode(true));
+            if (currency in currencyNames) {
+                let option = document.createElement('option');
+                option.value = currency;
+                option.textContent = `${currency} - ${currencyNames[currency]}`;
+                fromCurrencySelect.appendChild(option);
+                toCurrencySelect.appendChild(option.cloneNode(true));
+            }
         });
     } catch (error) {
         console.error('Error fetching exchange rates:', error);
